@@ -16,8 +16,13 @@ public class SolutionsByQuizMaster extends LinkedHashMap<String, Map<Integer, In
             }
             final int firstSemicolon = line.indexOf(';');
             final String quizMaster = line.substring(0, firstSemicolon);
+            final String solutionString = line.substring(firstSemicolon + 1);
+            if (solutionString.isBlank()) {
+                line = reader.readLine();
+                continue;
+            }
             final int[] solutionArray =
-                Arrays.stream(line.substring(firstSemicolon + 1).split(";")).mapToInt(AnswerParser.INSTANCE).toArray();
+                Arrays.stream(solutionString.split(";")).mapToInt(AnswerParser.INSTANCE).toArray();
             final Map<Integer, Integer> solution = new LinkedHashMap<Integer, Integer>();
             for (int i = 0; i < solutionArray.length; i++) {
                 solution.put(i + 1, solutionArray[i]);
