@@ -52,10 +52,10 @@ class ResultsByQuizMasterAndParticipantTest {
             + System.lineSeparator()
             + "Gut bestanden Prozent;50,00;100,00;0,00"
             + System.lineSeparator()
-            + "Bonus;1;3;0"
+            + "Bonus;0;3;0"
             + System.lineSeparator()
             + System.lineSeparator()
-            + "Bewertung;8;13;3"
+            + "Bewertung;7;13;3"
             + System.lineSeparator()
         );
     }

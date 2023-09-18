@@ -144,7 +144,7 @@ public class ResultsByQuizMasterAndParticipant extends LinkedHashMap<String, Map
             dataQuizMaster -> {
                 final double pointsPercent =
                     100 * dataQuizMaster.totalPointsOwnQuiz / (double)(10 * dataQuizMaster.participantsOwnQuiz);
-                if (pointsPercent >= 50) {
+                if (pointsPercent >= 75) {
                     dataQuizMaster.bonusOwn++;
                 }
                 writer.write(String.format("%.2f", pointsPercent));
