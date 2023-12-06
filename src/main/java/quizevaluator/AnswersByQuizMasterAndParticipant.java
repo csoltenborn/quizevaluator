@@ -39,6 +39,9 @@ public class AnswersByQuizMasterAndParticipant extends LinkedHashMap<String, Map
                 line = reader.readLine();
                 continue;
             }
+            if (nameAndAnswers.length > 2) {
+                throw new IOException("Format not ok - more than one semicolon in a line!");
+            }
             final Map<Integer, Integer> answers = new LinkedHashMap<Integer, Integer>();
             for (final String answer : nameAndAnswers[1].split(",")) {
                 final Integer value = AnswerParser.INSTANCE.apply(answer);
