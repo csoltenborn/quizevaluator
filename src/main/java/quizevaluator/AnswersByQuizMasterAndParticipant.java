@@ -34,16 +34,14 @@ public class AnswersByQuizMasterAndParticipant extends LinkedHashMap<String, Map
                 line = reader.readLine();
                 continue;
             }
-            final String[] nameAndAnswers = line.split(";");
+            final String[] nameAndAnswers = line.split(";|,");
             if (nameAndAnswers.length < 2) {
                 line = reader.readLine();
                 continue;
             }
-            if (nameAndAnswers.length > 2) {
-                throw new IOException("Format not ok - more than one semicolon in a line!");
-            }
             final Map<Integer, Integer> answers = new LinkedHashMap<Integer, Integer>();
-            for (final String answer : nameAndAnswers[1].split(",")) {
+            for (int i = 1; i < nameAndAnswers.length; i++) {
+                final String answer = nameAndAnswers[i];
                 final Integer value = AnswerParser.INSTANCE.apply(answer);
                 if (value != null) {
                     answers.put(AnswersByQuizMasterAndParticipant.parseNumber(answer), value);
