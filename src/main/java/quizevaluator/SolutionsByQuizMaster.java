@@ -3,7 +3,7 @@ package quizevaluator;
 import java.io.*;
 import java.util.*;
 
-public class SolutionsByQuizMaster extends LinkedHashMap<String, Map<Integer, Integer>> {
+public class SolutionsByQuizMaster extends LinkedHashMap<String, Answer> {
 
     private static final long serialVersionUID = -1349168626196465688L;
 
@@ -23,7 +23,7 @@ public class SolutionsByQuizMaster extends LinkedHashMap<String, Map<Integer, In
             }
             final int[] solutionArray =
                 Arrays.stream(solutionString.split(";")).mapToInt(AnswerParser.INSTANCE).toArray();
-            final Map<Integer, Integer> solution = new LinkedHashMap<Integer, Integer>();
+            final Answer solution = new Answer();
             for (int i = 0; i < solutionArray.length; i++) {
                 solution.put(i + 1, solutionArray[i]);
             }
@@ -32,7 +32,7 @@ public class SolutionsByQuizMaster extends LinkedHashMap<String, Map<Integer, In
         }
     }
 
-    public SolutionsByQuizMaster(final Map<String, Map<Integer, Integer>> map) {
+    public SolutionsByQuizMaster(final Map<String, Answer> map) {
         super(map);
     }
 

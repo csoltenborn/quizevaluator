@@ -18,3 +18,4 @@ build
 .project
 bin
 test-output
+build.sh

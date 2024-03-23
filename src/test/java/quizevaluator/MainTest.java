@@ -5,28 +5,29 @@ import java.io.*;
 import org.testng.*;
 import org.testng.annotations.Test;
 
-class ResultsByQuizMasterAndParticipantTest {
+class MainTest {
 
     @Test
     void outputTest() throws IOException {
-        final AnswersByQuizMasterAndParticipant answers = new AnswersByQuizMasterAndParticipant();
+        final AnswerDataByQuizMasterAndParticipant answers = new AnswerDataByQuizMasterAndParticipant();
+        SolutionsByQuizMaster solutionsByQuizMaster;
+        try (BufferedReader reader = new BufferedReader(new StringReader(Data.SOLUTIONS))) {
+            solutionsByQuizMaster = new SolutionsByQuizMaster(reader);
+        }
         try (BufferedReader reader = new BufferedReader(new StringReader(Data.ANSWER2))) {
-            answers.parseAnswers(reader);
+            answers.parseAnswers(reader, solutionsByQuizMaster);
         }
         try (BufferedReader reader = new BufferedReader(new StringReader(Data.ANSWER3))) {
-            answers.parseAnswers(reader);
+            answers.parseAnswers(reader, solutionsByQuizMaster);
         }
         try (BufferedReader reader = new BufferedReader(new StringReader(Data.ANSWER1))) {
-            answers.parseAnswers(reader);
+            answers.parseAnswers(reader, solutionsByQuizMaster);
         }
         final StringWriter output = new StringWriter();
-        try (
-            BufferedReader reader = new BufferedReader(new StringReader(Data.SOLUTIONS));
-            BufferedWriter writer = new BufferedWriter(output);
-        ) {
+        try (BufferedWriter writer = new BufferedWriter(output)) {
             final ResultsByQuizMasterAndParticipant results =
-                new ResultsByQuizMasterAndParticipant(new SolutionsByQuizMaster(reader), answers);
-            results.output(writer);
+                new ResultsByQuizMasterAndParticipant(answers, new OldSchoolMCResultComputation());
+            new CSVWriter(writer).writeCSV(results, Main.QUIZ_MASTER_EVALUATIONS, Main.PARTICIPANTS_EVALUATIONS);
         }
         Assert.assertEquals(
             output.toString(),
