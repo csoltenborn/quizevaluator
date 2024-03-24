@@ -22,13 +22,23 @@ public interface Evaluation {
         return results.get(quizMaster).values().stream().mapToInt(points -> points >= passLimit ? 1 : 0).sum();
     }
 
-    public static double passedPercentage(
+    public static double passedPercentageParticipant(
         final ResultsByQuizMasterAndParticipant results,
-        final String name,
+        final String participant,
         final BiFunction<ResultsByQuizMasterAndParticipant, String, Integer> countFunction
     ) {
-        final double passedTimes100 = countFunction.apply(results, name) * 100;
+        final double passedTimes100 = countFunction.apply(results, participant) * 100;
         final int total = (results.size() - 1);
+        return passedTimes100 / total;
+    }
+
+    public static double passedPercentageQuizMaster(
+        final ResultsByQuizMasterAndParticipant results,
+        final String quizMaster,
+        final BiFunction<ResultsByQuizMasterAndParticipant, String, Integer> countFunction
+    ) {
+        final double passedTimes100 = countFunction.apply(results, quizMaster) * 100;
+        final int total = results.get(quizMaster).size();
         return passedTimes100 / total;
     }
 

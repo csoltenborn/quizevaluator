@@ -5,7 +5,7 @@ import quizevaluator.*;
 public class Passed5PercentageForQuizMasterEvaluation implements Evaluation {
 
     public static double passedPercentage(final ResultsByQuizMasterAndParticipant results, final String name) {
-        return Evaluation.passedPercentage(results, name, Passed5CountForQuizMasterEvaluation::passedCount);
+        return Evaluation.passedPercentageQuizMaster(results, name, Passed5CountForQuizMasterEvaluation::passedCount);
     }
 
     @Override
