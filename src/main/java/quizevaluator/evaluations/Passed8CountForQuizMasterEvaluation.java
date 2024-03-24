@@ -5,7 +5,7 @@ import quizevaluator.*;
 public class Passed8CountForQuizMasterEvaluation implements Evaluation {
 
     public static int passedCount(final ResultsByQuizMasterAndParticipant results, final String name) {
-        return results.get(name).values().stream().mapToInt(points -> points >= 8 ? 1 : 0).sum();
+        return Evaluation.passedCountQuizMaster(results, name, 8);
     }
 
     @Override

@@ -27,7 +27,11 @@ class MainTest {
         try (BufferedWriter writer = new BufferedWriter(output)) {
             final ResultsByQuizMasterAndParticipant results =
                 new ResultsByQuizMasterAndParticipant(answers, new OldSchoolMCResultComputation());
-            new CSVWriter(writer).writeCSV(results, Main.QUIZ_MASTER_EVALUATIONS, Main.PARTICIPANTS_EVALUATIONS);
+            new CSVWriter(writer).writeCSV(
+                results,
+                Main.QUIZ_MASTER_EVALUATIONS_OLD,
+                Main.PARTICIPANTS_EVALUATIONS_OLD
+            );
         }
         Assert.assertEquals(
             output.toString(),

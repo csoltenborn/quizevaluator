@@ -2,15 +2,15 @@ package quizevaluator.evaluations;
 
 import quizevaluator.*;
 
-public class Passed5CountForQuizMasterEvaluation implements Evaluation {
+public class Passed6CountForParticipantEvaluation implements Evaluation {
 
     public static int passedCount(final ResultsByQuizMasterAndParticipant results, final String name) {
-        return Evaluation.passedCountQuizMaster(results, name, 5);
+        return Evaluation.passedCountParticipant(results, name, 6);
     }
 
     @Override
     public String cellText(final ResultsByQuizMasterAndParticipant results, final String name) {
-        return String.valueOf(Passed5CountForQuizMasterEvaluation.passedCount(results, name));
+        return String.valueOf(Passed6CountForParticipantEvaluation.passedCount(results, name));
     }
 
     @Override

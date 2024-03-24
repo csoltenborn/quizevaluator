@@ -2,15 +2,15 @@ package quizevaluator.evaluations;
 
 import quizevaluator.*;
 
-public class Passed5PercentageForQuizMasterEvaluation implements Evaluation {
+public class Passed6PercentageForQuizMasterEvaluation implements Evaluation {
 
     public static double passedPercentage(final ResultsByQuizMasterAndParticipant results, final String name) {
-        return Evaluation.passedPercentage(results, name, Passed5CountForQuizMasterEvaluation::passedCount);
+        return Evaluation.passedPercentage(results, name, Passed6CountForQuizMasterEvaluation::passedCount);
     }
 
     @Override
     public String cellText(final ResultsByQuizMasterAndParticipant results, final String name) {
-        return String.format("%.2f", Passed5PercentageForQuizMasterEvaluation.passedPercentage(results, name));
+        return String.format("%.2f", Passed6PercentageForQuizMasterEvaluation.passedPercentage(results, name));
     }
 
     @Override
