@@ -6,7 +6,7 @@ public class PointsPercentageForQuizMasterEvaluation implements Evaluation {
 
     public static double pointsPercentage(final ResultsByQuizMasterAndParticipant results, final String name) {
         final double sumTimes100 = TotalPointsForQuizMasterEvaluation.totalPoints(results, name) * 100;
-        final int total = (results.size() - 1) * 10;
+        final int total = results.get(name).size() * 10;
         return sumTimes100 / total;
     }
 
