@@ -4,9 +4,9 @@ import quizevaluator.*;
 
 public class BonusForQuizMasterEvaluation implements Evaluation {
 
-    private static int bonus(final ResultsByQuizMasterAndParticipant results, final String name) {
+    public static int bonus(final ResultsByQuizMasterAndParticipant results, final String name, int pointsPercentage) {
         int result = 0;
-        if (PointsPercentageForQuizMasterEvaluation.pointsPercentage(results, name) >= 75) {
+        if (PointsPercentageForQuizMasterEvaluation.pointsPercentage(results, name) >= pointsPercentage) {
             result++;
         }
         final int passedPercentage = (int)Passed5PercentageForQuizMasterEvaluation.passedPercentage(results, name);
@@ -17,6 +17,10 @@ public class BonusForQuizMasterEvaluation implements Evaluation {
             result++;
         }
         return result;
+    }
+
+    private static int bonus(final ResultsByQuizMasterAndParticipant results, final String name) {
+        return bonus(results, name, 75);
     }
 
     @Override

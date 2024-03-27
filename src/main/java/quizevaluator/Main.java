@@ -38,7 +38,7 @@ public class Main {
             new Passed6TotalForQuizMasterEvaluation(),
             new Passed8CountForQuizMasterEvaluation(),
             new Passed8PercentageForQuizMasterEvaluation(),
-            new BonusForQuizMasterEvaluation()
+            new ModernBonusForQuizMasterEvaluation()
         );
 
     static final List<Evaluation> QUIZ_MASTER_EVALUATIONS_OLD =
