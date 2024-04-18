@@ -17,6 +17,10 @@ public class BonusForParticipantEvaluationTest {
         Assert.assertEquals(new BonusForParticipantEvaluation().evaluation(Data.RESULTS2, "Bob"), 1);
         Assert.assertEquals(new BonusForParticipantEvaluation().evaluation(Data.RESULTS2, "Claire"), 1);
         Assert.assertEquals(new BonusForParticipantEvaluation().evaluation(Data.RESULTS2, "David"), 3);
+        Assert.assertEquals(new BonusForParticipantEvaluation().evaluation(Data.RESULTS3, "Anna"), 3);
+        Assert.assertEquals(new BonusForParticipantEvaluation().evaluation(Data.RESULTS3, "Bob"), 2);
+        Assert.assertEquals(new BonusForParticipantEvaluation().evaluation(Data.RESULTS3, "Claire"), 1);
+        Assert.assertEquals(new BonusForParticipantEvaluation().evaluation(Data.RESULTS3, "David"), 2);
     }
 
 }

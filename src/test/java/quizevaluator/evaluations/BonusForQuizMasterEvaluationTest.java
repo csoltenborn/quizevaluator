@@ -17,6 +17,10 @@ public class BonusForQuizMasterEvaluationTest {
         Assert.assertEquals(new BonusForQuizMasterEvaluation().evaluation(Data.RESULTS2, "Bob"), 1);
         Assert.assertEquals(new BonusForQuizMasterEvaluation().evaluation(Data.RESULTS2, "Claire"), 2);
         Assert.assertEquals(new BonusForQuizMasterEvaluation().evaluation(Data.RESULTS2, "David"), 0);
+        Assert.assertEquals(new BonusForQuizMasterEvaluation().evaluation(Data.RESULTS3, "Anna"), 2);
+        Assert.assertEquals(new BonusForQuizMasterEvaluation().evaluation(Data.RESULTS3, "Bob"), 3);
+        Assert.assertEquals(new BonusForQuizMasterEvaluation().evaluation(Data.RESULTS3, "Claire"), 3);
+        Assert.assertEquals(new BonusForQuizMasterEvaluation().evaluation(Data.RESULTS3, "David"), 1);
     }
 
 }
