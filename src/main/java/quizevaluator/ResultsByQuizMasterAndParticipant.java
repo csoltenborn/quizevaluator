@@ -21,4 +21,17 @@ public class ResultsByQuizMasterAndParticipant extends LinkedHashMap<String, Map
         }
     }
 
+    ResultsByQuizMasterAndParticipant(String[] names, int[][] results) {
+        for (int quizMaster = 0; quizMaster < names.length; quizMaster++) {
+            Map<String, Integer> resultsByParticipant = new LinkedHashMap<String, Integer>();
+            for (int participant = 0; participant < names.length; participant++) {
+                int result = results[participant][quizMaster];
+                if (result >= 0) {
+                    resultsByParticipant.put(names[participant], result);
+                }
+            }
+            this.put(names[quizMaster], resultsByParticipant);
+        }
+    }
+
 }
