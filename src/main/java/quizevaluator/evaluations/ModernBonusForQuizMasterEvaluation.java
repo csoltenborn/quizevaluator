@@ -4,8 +4,24 @@ import quizevaluator.*;
 
 public class ModernBonusForQuizMasterEvaluation implements Evaluation {
 
+    private static final BonusCalculation[] CALCULATIONS =
+        new BonusCalculation[] {
+            new BonusCalculation(
+                (results, name) -> (int)PointsPercentageForQuizMasterEvaluation.pointsPercentage(results, name),
+                80
+            ),
+            new BonusCalculation(
+                (results, name) -> (int)Passed6PercentageForQuizMasterEvaluation.passedPercentage(results, name),
+                100
+            ),
+            new BonusCalculation(
+                (results, name) -> (int)Passed9PercentageForQuizMasterEvaluation.passedPercentage(results, name),
+                80
+            )
+        };
+
     private static int bonus(final ResultsByQuizMasterAndParticipant results, final String name) {
-        return BonusForQuizMasterEvaluation.bonus(results, name, 80);
+        return BonusCalculation.bonus(results, name, ModernBonusForQuizMasterEvaluation.CALCULATIONS);
     }
 
     @Override
