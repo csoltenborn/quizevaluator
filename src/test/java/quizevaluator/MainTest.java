@@ -15,13 +15,13 @@ class MainTest {
             solutionsByQuizMaster = new SolutionsByQuizMaster(reader);
         }
         try (BufferedReader reader = new BufferedReader(new StringReader(Data.ANSWER2))) {
-            answers.parseAnswers(reader, solutionsByQuizMaster);
+            answers.parseAnswers(reader, solutionsByQuizMaster, new File("DUMMY"));
         }
         try (BufferedReader reader = new BufferedReader(new StringReader(Data.ANSWER3))) {
-            answers.parseAnswers(reader, solutionsByQuizMaster);
+            answers.parseAnswers(reader, solutionsByQuizMaster, new File("DUMMY"));
         }
         try (BufferedReader reader = new BufferedReader(new StringReader(Data.ANSWER1))) {
-            answers.parseAnswers(reader, solutionsByQuizMaster);
+            answers.parseAnswers(reader, solutionsByQuizMaster, new File("DUMMY"));
         }
         final StringWriter output = new StringWriter();
         try (BufferedWriter writer = new BufferedWriter(output)) {

@@ -51,7 +51,7 @@ class AnswerDataByQuizMasterAndParticipantTest {
         solutions.put("z", solution3);
         final SolutionsByQuizMaster solutionsByQuizMaster = new SolutionsByQuizMaster(solutions);
         try (BufferedReader reader = new BufferedReader(new StringReader(Data.ANSWER1))) {
-            answers.parseAnswers(reader, solutionsByQuizMaster);
+            answers.parseAnswers(reader, solutionsByQuizMaster, new File("DUMMY"));
         }
         Assert.assertEquals(answers.size(), 1);
         Assert.assertTrue(answers.containsKey("x"));
@@ -68,7 +68,7 @@ class AnswerDataByQuizMasterAndParticipantTest {
         Assert.assertEquals(answersForXFromY.correct(), 3);
         Assert.assertEquals(answersForXFromY.wrong(), 1);
         try (BufferedReader reader = new BufferedReader(new StringReader(Data.ANSWER2))) {
-            answers.parseAnswers(reader, solutionsByQuizMaster);
+            answers.parseAnswers(reader, solutionsByQuizMaster, new File("DUMMY"));
         }
         Assert.assertEquals(answers.size(), 2);
         Assert.assertTrue(answers.containsKey("x"));
@@ -87,7 +87,7 @@ class AnswerDataByQuizMasterAndParticipantTest {
 
                 @Override
                 public void run() throws IOException {
-                    answers.parseAnswers(reader, new SolutionsByQuizMaster(Collections.emptyMap()));
+                    answers.parseAnswers(reader, new SolutionsByQuizMaster(Collections.emptyMap()), new File("DUMMY"));
                 }
 
             });

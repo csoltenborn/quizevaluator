@@ -27,7 +27,8 @@ public class AnswerDataByQuizMasterAndParticipant extends LinkedHashMap<String, 
 
     public void parseAnswers(
         final BufferedReader reader,
-        final SolutionsByQuizMaster solutionsByQuizMaster
+        final SolutionsByQuizMaster solutionsByQuizMaster,
+        final File file
     ) throws IOException {
         final String quizMaster = reader.readLine().trim();
         final Map<String, AnswerData> answerDataByParticipant = new LinkedHashMap<String, AnswerData>();
@@ -39,6 +40,8 @@ public class AnswerDataByQuizMasterAndParticipant extends LinkedHashMap<String, 
             }
             final String[] participantAndAnswerText = line.split(";|,");
             if (participantAndAnswerText.length < 2) {
+                System.out.println("Warning for file %s: Line does not contain semicolon. Ignoring... Line:\n%s"
+                        .formatted(file.getName(), line));
                 line = reader.readLine();
                 continue;
             }

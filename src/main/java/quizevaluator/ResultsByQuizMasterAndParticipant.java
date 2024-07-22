@@ -1,5 +1,6 @@
 package quizevaluator;
 
+import java.io.IOException;
 import java.util.*;
 
 public class ResultsByQuizMasterAndParticipant extends LinkedHashMap<String, Map<String, Integer>> {
@@ -9,11 +10,14 @@ public class ResultsByQuizMasterAndParticipant extends LinkedHashMap<String, Map
     public ResultsByQuizMasterAndParticipant(
         final AnswerDataByQuizMasterAndParticipant answersByQuizMasterAndParticipant,
         final ResultComputation resultComputation
-    ) {
+    ) throws IOException {
         for (final String quizMaster : answersByQuizMasterAndParticipant.keySet()) {
             final Map<String, Integer> resultsByParticipant = new LinkedHashMap<String, Integer>();
             final Map<String, AnswerData> answersByParticipant =
                 answersByQuizMasterAndParticipant.get(quizMaster);
+            if (answersByParticipant == null) {
+                throw new IOException("No solution found for quizmaster '%s'".formatted(quizMaster));
+            }
             for (final String participant : answersByParticipant.keySet()) {
                 resultsByParticipant.put(participant, resultComputation.apply(answersByParticipant.get(participant)));
             }

@@ -14,7 +14,7 @@ public class FormsExcelToCsvConverterTest {
     public void testConvert() throws IOException {
         String quizAuthor = "Hans Mustermann";
         InputStream inputStream = getClass().getClassLoader()
-                .getResourceAsStream(quizAuthor + "_ Topic of Talk(1-10).xlsx");
+                .getResourceAsStream("%s_ Topic of Talk(1-10).xlsx".formatted(quizAuthor));
         File excelFile = createFileFromInputStream(inputStream, quizAuthor + "_", ".xlsx");
 
         File targetFile = new FormsExcelToCsvConverter().convert(excelFile);

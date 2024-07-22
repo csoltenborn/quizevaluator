@@ -64,14 +64,27 @@ public class Main {
         final SolutionsByQuizMaster solutionsByQuizMaster = Main.parseSolutions(args[0]);
         final AnswerDataByQuizMasterAndParticipant answerDataByQuizMasterAndParticipant =
             new AnswerDataByQuizMasterAndParticipant();
+        boolean thereWereErrors = false;
         for (File file : new File(args[1]).listFiles()) {
-            if (excelConverter.isExcelFile(file)) {
-                file = excelConverter.convert(file);
-            }
-            try (BufferedReader answersReader = new BufferedReader(new FileReader(file))) {
-                answerDataByQuizMasterAndParticipant.parseAnswers(answersReader, solutionsByQuizMaster);
+            try {
+                if (excelConverter.isExcelFile(file)) {
+                    file = excelConverter.convert(file);
+                }
+                try (BufferedReader answersReader = new BufferedReader(new FileReader(file))) {
+                    answerDataByQuizMasterAndParticipant.parseAnswers(answersReader, solutionsByQuizMaster, file);
+                }
+            } catch (Exception e) {
+                thereWereErrors = true;
+                System.err.println("File %s: %s".formatted(file.getName(), e.getMessage()));
             }
         }
+        if (thereWereErrors) {
+            System.err.println("\nErrors while parsing answers - please fix them. Exiting...");
+            System.exit(1);
+        }
+
+        plausibilityCheck(solutionsByQuizMaster, answerDataByQuizMasterAndParticipant);
+
         final boolean newMode = args.length == 4 ? args[3].toLowerCase().equals("new") : false;
         final ResultsByQuizMasterAndParticipant results =
             new ResultsByQuizMasterAndParticipant(
@@ -84,6 +97,32 @@ public class Main {
                 newMode ? Main.QUIZ_MASTER_EVALUATIONS_NEW : Main.QUIZ_MASTER_EVALUATIONS_OLD,
                 newMode ? Main.PARTICIPANTS_EVALUATIONS_NEW : Main.PARTICIPANTS_EVALUATIONS_OLD
             );
+        } catch (Exception e) {
+            System.err.println("Error while computing and writing results: %s".formatted(e.getMessage()));
+            System.exit(1);
+        }
+    }
+
+    private static void plausibilityCheck(SolutionsByQuizMaster solutionsByQuizMaster, AnswerDataByQuizMasterAndParticipant answerDataByQuizMasterAndParticipant) {
+        System.out.println("Plausibility Check");
+        System.out.println("==================");
+
+        var allParticipants = new HashSet<String>();
+        for (var answers : answerDataByQuizMasterAndParticipant.values()) {
+            allParticipants.addAll(answers.keySet());
+        }
+
+        var quizmastersNotInParticipants = new HashSet<>(solutionsByQuizMaster.keySet());
+        quizmastersNotInParticipants.removeAll(allParticipants);
+
+        var participantsNotInQuizmasters = new HashSet<>(allParticipants);
+        participantsNotInQuizmasters.removeAll(solutionsByQuizMaster.keySet());
+
+        if (quizmastersNotInParticipants.isEmpty() && participantsNotInQuizmasters.isEmpty()) {
+            System.out.println("No problems found.");
+        } else {
+            System.out.println("Quizmasters not in participants: " + quizmastersNotInParticipants);
+            System.out.println("Participants not in quizmasters: " + participantsNotInQuizmasters);
         }
     }
 

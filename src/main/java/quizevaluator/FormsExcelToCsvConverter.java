@@ -47,23 +47,19 @@ public class FormsExcelToCsvConverter {
         List<String> lines = new ArrayList<>();
         lines.add(quizAuthor);
 
-        FileInputStream fileInputStream = new FileInputStream(excelFile);
-        Workbook workbook = new XSSFWorkbook(fileInputStream);
-        Sheet sheet = workbook.getSheetAt(0);
+        try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
+            try (Workbook workbook = new XSSFWorkbook(fileInputStream)) {
+                Sheet sheet = workbook.getSheetAt(0);
 
-        for (int rowNumber = 1; rowNumber < sheet.getPhysicalNumberOfRows(); rowNumber++) {
-            Row row = sheet.getRow(rowNumber);
-            String participant = row.getCell(PARTICIPANT_COLUMN).getStringCellValue();
+                for (int rowNumber = 1; rowNumber < sheet.getPhysicalNumberOfRows(); rowNumber++) {
+                    Row row = sheet.getRow(rowNumber);
+                    String participant = row.getCell(PARTICIPANT_COLUMN).getStringCellValue();
+                    List<String> answers = getAnswers(row);
 
-            StringBuilder line = new StringBuilder(participant);
-            line.append("; ");
-            line.append(String.join(", ", getAnswers(row)));
-
-            lines.add(line.toString());
+                    lines.add("%s; %s".formatted(participant, String.join(", ", answers)));
+                }
+            }
         }
-
-        workbook.close();
-        fileInputStream.close();
 
         Files.write(Path.of(targetFile.toURI()), lines);
         return targetFile;
