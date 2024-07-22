@@ -35,7 +35,7 @@ class MainTest {
         }
         Assert.assertEquals(
             output.toString(),
-            ";y;z;x;Punkte gesamt;Punkte Prozent;Bestanden gesamt;Bestanden Prozent;Gut bestanden gesamt;Gut bestanden Prozent;Bonuspunkte"
+            "Teilnehmer \\ Quizmaster;y;z;x;Punkte gesamt;Punkte Prozent;Bestanden gesamt;Bestanden Prozent;Gut bestanden gesamt;Gut bestanden Prozent;Bonuspunkte"
             + System.lineSeparator()
             + "y;;10;2;12;60,00;1;50,00;1;50,00;1"
             + System.lineSeparator()

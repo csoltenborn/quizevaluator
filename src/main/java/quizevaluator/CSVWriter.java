@@ -31,6 +31,7 @@ public class CSVWriter {
         for (final Evaluation participantEvaluation : participantEvaluations) {
             participantTitles.add(participantEvaluation.title());
         }
+        this.writer.write("Teilnehmer \\ Quizmaster");
         for (final String name : names) {
             this.writer.write(';');
             this.writer.write(name);
